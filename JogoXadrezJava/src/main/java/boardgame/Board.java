@@ -43,6 +43,21 @@ public void placePiece (Position pos, Piece piece) {
         pieces[pos.getRow()][pos.getColumn()] = piece;
         piece.position = pos;
 }
+public Piece removePiece (Position pos) {
+        if (!positionExists(pos)){
+            throw new BoardException("Position not on the board");
+        }
+        if (pieces[pos.getRow()][pos.getColumn()] == null){
+            return null;
+        }
+        Piece aux = piece(pos);
+        aux .position = null;
+        pieces[pos.getRow()][pos.getColumn()] = null;
+        return aux;
+
+
+
+}
 private boolean positionExists (int row, int col) {
      return  row >=0 && row < rows && col>=0 && col < columns;
 }
