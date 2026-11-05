@@ -11,14 +11,24 @@ import java.util.List;
 
 public class ChessMatch {
     private Board board;
+    private int turn;
+    private Color currentPlayer;
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
 
 
     public ChessMatch() {
         board = new Board(8,8);
+        turn = 1;
+        currentPlayer = Color.WHITE;
         initialSetup();
     }
 
+    public int getTurn() {
+        return turn;
+    }
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
     public ChessPiece [][] getPieces(){
         ChessPiece [][] pieces = new ChessPiece[board.getRows()][board.getColumns()];
         for(int i = 0; i < board.getRows(); i++) {
@@ -41,6 +51,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source,target);
         Piece capturedPiece = makeMove(source,target);
+        nextTurn();
         return (ChessPiece)capturedPiece;
     }
     private void validateTargetPosition(Position source, Position target) {
@@ -52,11 +63,20 @@ public class ChessMatch {
         if (!board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
         }
+        if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+            throw new ChessException("The chosen piece is not your color");
+        }
         if (!board.piece(position).isThereAnyPOssibleMove()) {
             throw new ChessException("There is no possible moves for the chosen piece");
         }
 
     }
+
+    private void nextTurn() {
+        turn++;
+        currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+    }
+
     private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
