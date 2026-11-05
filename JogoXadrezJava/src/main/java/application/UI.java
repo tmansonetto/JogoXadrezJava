@@ -49,7 +49,7 @@ public class UI {
         for(int y = 0; y < pieces.length; y++){
             System.out.print((8-y) + " ");
             for(int x = 0; x < pieces.length; x++){
-             printPiece(pieces[y][x],false);
+                printPiece(pieces[y][x], false);
             }
             System.out.println();
         }
@@ -72,5 +72,16 @@ public class UI {
             }
         }
         System.out.print(" ");
+    }
+    public static void printBoard(ChessPiece[][] pieces,boolean [][] possibleMoves){
+        for(int y = 0; y < pieces.length; y++){
+            System.out.print((8-y) + " ");
+            for(int x = 0; x < pieces.length; x++){
+                printPiece(pieces[y][x], possibleMoves[y][x]);
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+
     }
 }

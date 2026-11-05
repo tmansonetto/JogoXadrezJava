@@ -13,6 +13,7 @@ public class ChessMatch {
     private Board board;
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
 
+
     public ChessMatch() {
         board = new Board(8,8);
         initialSetup();
@@ -26,6 +27,12 @@ public class ChessMatch {
                 }
             }
             return  pieces;
+    }
+
+    public boolean[][] possibleMoves(ChessPosition sourcePosition){
+        Position position = sourcePosition.toPosition();
+        validateSourcePosition(position);
+        return board.piece(position).possibleMoves();
     }
 
     public ChessPiece  performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
