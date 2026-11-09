@@ -67,10 +67,9 @@ public class ChessMatch {
             undoMove(source,target,capturedPiece);
             throw new ChessException("You can not put yourself in check");
         }
-        check = (testCheck(opponent(currentPlayer)))? true:false;
-        if (testCheck(opponent(currentPlayer))){
+        check = testCheck(opponent(currentPlayer));
+        if (testCheckMate(opponent(currentPlayer))){
             checkMate = true;
-
         }
         else {
             nextTurn();
@@ -165,7 +164,7 @@ public class ChessMatch {
                         Piece capturedPiece = makeMove(source,target);
                         boolean testCheck = testCheck(color);
                         undoMove(source,target,capturedPiece);
-                        if (!testCheckMate(color)) {
+                        if (!testCheck) {
                             return false;
                         }
                     }
@@ -183,6 +182,7 @@ public class ChessMatch {
         placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
         placeNewPiece('c', 1, new Bishop(board, Color.WHITE));
+        placeNewPiece('d', 1, new Queen(board, Color.WHITE));
         placeNewPiece('e', 1, new King(board, Color.WHITE));
         placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
         placeNewPiece('g', 1, new Knight(board, Color.WHITE));
@@ -199,6 +199,7 @@ public class ChessMatch {
         placeNewPiece('a', 8, new Rook(board, Color.BLACK));
         placeNewPiece('b', 8, new Knight(board, Color.BLACK));
         placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
+        placeNewPiece('d', 8, new Queen(board, Color.BLACK));
         placeNewPiece('e', 8, new King(board, Color.BLACK));
         placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
         placeNewPiece('g', 8, new Knight(board, Color.BLACK));
